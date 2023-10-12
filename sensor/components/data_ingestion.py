@@ -6,12 +6,15 @@ from sklearn.model_selection import train_test_split
 import sys, os
 from pandas import DataFrame
 from sensor.data_access.sensor_data import SensorData
+from sensor.utils.main_utils import read_yaml_file, write_yaml_file
+from sensor.constant.training_pipeline import SCHEMA_FILE_PATH
 
 class DataIngestion:
 
     def __init__(self, data_ingestion_config: DataIngestionConfig):
         try:
             self.data_ingestion_config = data_ingestion_config
+            self._schema_config = read_yaml_file(SCHEMA_FILE_PATH)
         except Exception as e:
             raise SensorException(e,sys)
     
@@ -26,7 +29,7 @@ class DataIngestion:
             feature_store_file_path = self.data_ingestion_config.feature_store_file_path
 
             # creating Folder
-            dir_path  = os.path.dirname(feature_store_file_path)
+            dir_path = os.path.dirname(feature_store_file_path)
             os.makedirs(dir_path,exist_ok=True)
             dataframe.to_csv(feature_store_file_path,index=False,header=True)
             return dataframe
@@ -36,6 +39,7 @@ class DataIngestion:
 
     def split_data_into_train_test(self, dataframe: DataFrame) -> None:
         """
+            dir_path  = os.path.dirname(feature_store_file_path)
         Feature store dataset will be split into train and test file
         """
 
@@ -64,9 +68,10 @@ class DataIngestion:
     def initiate_data_ingestion(self) -> DataIngestionArtifact:
         try:
             dataframe = self.export_data_into_feature_store()
+            dataframe = dataframe.drop(self._schema_config["drop_columns"], axis=1)
             self.split_data_into_train_test(dataframe=dataframe)
             data_ingestion_artifact = DataIngestionArtifact(trained_file_path=self.data_ingestion_config.training_file_path,
-                                test_file_path=self.data_ingestion_config.testing_file_path)
+                                tested_file_path=self.data_ingestion_config.testing_file_path)
             return data_ingestion_artifact
         
         except Exception as e:
