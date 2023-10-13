@@ -130,5 +130,7 @@ class DataValidation:
 
             logging.info(f"Data Validation Artifact : {data_validation_artifact.__dict__}")
 
+            return data_validation_artifact
+
         except Exception as e:
             raise SensorException(e,sys)

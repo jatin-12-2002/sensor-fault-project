@@ -6,3 +6,5 @@ scikit-learn
 PyYAML
 ipykernel
 scipy
+imblearn
+dill
