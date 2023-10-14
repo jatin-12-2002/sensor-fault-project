@@ -39,7 +39,7 @@ class ModelEvaluation:
 
             train_model_file_path = self.model_trainer_artifact.trained_model_file_path
             model_resolver = ModelResolver()
-
+            
             is_model_accepted = True
             if not model_resolver.is_model_exists():
                 model_evaluation_artifact = ModelEvaluationArtifact(
