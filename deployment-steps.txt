@@ -57,10 +57,10 @@ AWS_ACCESS_KEY_ID=
 
 AWS_SECRET_ACCESS_KEY=
 
-AWS_REGION=ap-south-1
+AWS_REGION=us-east-1d
 
-AWS_ECR_LOGIN_URI=566373416292.dkr.ecr.ap-south-1.amazonaws.com
+AWS_ECR_LOGIN_URI=551678015360.dkr.ecr.us-east-1.amazonaws.com
 
-ECR_REPOSITORY_NAME=sensor-fault
+ECR_REPOSITORY_NAME=sen-scania
 
 MONGO_DB_URL=mongodb+srv://jatin:jatin@cluster1.x4lemgj.mongodb.net/
