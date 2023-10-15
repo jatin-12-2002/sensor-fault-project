@@ -18,5 +18,6 @@ class MongoDBClient:
             self.client = MongoDBClient.client
             self.database = self.client[database_name]  
             self.database_name = database_name
+        
         except Exception as e:
             raise e
